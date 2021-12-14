@@ -38,7 +38,7 @@ fun main() {
 
     // convert A to B
     val a = A("foo")
-    val b = a.adaptTo(B::class)
+    val b = a.adaptTo<B>()
     println("converted $a to $b")
 
     // convert json string to Person object
@@ -49,7 +49,7 @@ fun main() {
         }
     """.trimIndent()
 
-    val person = json.adaptTo(Person::class)
+    val person = json.adaptTo<Person>()
     println("converted $json to $person")
 }
 

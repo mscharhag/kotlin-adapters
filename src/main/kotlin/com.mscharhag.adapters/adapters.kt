@@ -9,10 +9,10 @@ interface Adapter {
 
 val adapters = mutableListOf<Adapter>()
 
-fun <F : Any, T : Any> F.adaptTo(targetType: KClass<T>): T {
-    val adapter = adapters.find { it.canAdapt(this, targetType) }
-            ?: throw NoSuitableAdapterFoundException(this, targetType)
-    return adapter.adaptTo(this, targetType)
+inline fun <reified T : Any> Any.adaptTo(): T {
+    val adapter = adapters.find { it.canAdapt(this, T::class) }
+            ?: throw NoSuitableAdapterFoundException(this, T::class)
+    return adapter.adaptTo(this, T::class)
 }
 
 class NoSuitableAdapterFoundException(from: Any, to: KClass<*>)
